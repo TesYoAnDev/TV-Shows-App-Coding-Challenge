@@ -44,8 +44,10 @@ class SearchShowListingsViewModel @Inject constructor(
                 }
             }
             is SearchShowListingsEvent.OnFavoriteSelected -> {
-                _uiState.value = SearchShowListingsState(show = event.show)
-                //_uiState.update { it.copy(show = event.show) }
+                // _uiState.value = _uiState.value.copy(show = event.show)
+
+               // _uiState.value = SearchShowListingsState(show = event.show)
+                _uiState.update { it.copy(show = event.show) }
                 addFavorite()
 
             }
@@ -73,8 +75,6 @@ class SearchShowListingsViewModel @Inject constructor(
     ) {
         viewModelScope.launch(dispatcher) {
             favoriteUseCase.addFavorite(show)
-            //repository.insertFavoriteShowToDb(show)
-            getShowListings()
         }
     }
 
