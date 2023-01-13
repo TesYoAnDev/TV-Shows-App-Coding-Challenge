@@ -1,4 +1,4 @@
-package com.tes.android.projects.tvshowsapp.presentation.search_show_listings
+package com.tes.android.projects.tvshowsapp.presentation.search_shows
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -21,13 +21,13 @@ import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 import com.tes.android.projects.tvshowsapp.core.components.ShowItem
 import com.tes.android.projects.tvshowsapp.core.components.TopAppBarContent
 import com.tes.android.projects.tvshowsapp.core.navigation.SHOW_DETAIL_SCREEN
-import com.tes.android.projects.tvshowsapp.domain.model.ShowListing
+import com.tes.android.projects.tvshowsapp.domain.model.ShowDetail
 
 
 @Composable
 fun SearchShowListingsScreen(
     navController: NavController,
-    viewModel: SearchShowListingsViewModel = hiltViewModel()
+    viewModel: SearchShowsViewModel = hiltViewModel()
 ) {
     val uiState by viewModel.uiState.collectAsState()
 
@@ -37,7 +37,7 @@ fun SearchShowListingsScreen(
 
     // Launch a coroutine bound to the scope of the composable, viewModel relaunched
     LaunchedEffect(key1 = viewModel, block = {
-        viewModel.onEvent(SearchShowListingsEvent.LoadShows)
+        viewModel.onEvent(SearchShowsEvent.LoadShows)
     })
 
     Column(
@@ -50,7 +50,7 @@ fun SearchShowListingsScreen(
             value = uiState.searchQuery,
             onValueChange = {
                 viewModel.onEvent(
-                    SearchShowListingsEvent.OnSearchQueryChange(it)
+                    SearchShowsEvent.OnSearchQueryChange(it)
                 )
             },
             modifier = Modifier
@@ -66,7 +66,7 @@ fun SearchShowListingsScreen(
         SwipeRefresh(
             state = swipeRefreshState,
             onRefresh = {
-                viewModel.onEvent(SearchShowListingsEvent.Refresh)
+                viewModel.onEvent(SearchShowsEvent.Refresh)
             }
         ) {
             LazyColumn(
@@ -107,8 +107,8 @@ fun SearchShowListingsScreen(
 
 @Composable
 fun FavoriteButton(
-    viewModel: SearchShowListingsViewModel = hiltViewModel(),
-    show: ShowListing
+    viewModel: SearchShowsViewModel = hiltViewModel(),
+    show: ShowDetail
 ) {
     var isFavorite by rememberSaveable(show) { mutableStateOf(show.isFavorite) }
 
@@ -116,9 +116,9 @@ fun FavoriteButton(
         isFavorite = !isFavorite
         show.isFavorite = isFavorite
         if (isFavorite) {
-            viewModel.onEvent(SearchShowListingsEvent.OnFavoriteSelected(show))
+            viewModel.onEvent(SearchShowsEvent.OnFavoriteSelected(show))
         } else {
-            viewModel.onEvent(SearchShowListingsEvent.DeleteFavorite(show.id))
+            viewModel.onEvent(SearchShowsEvent.DeleteFavorite(show.id))
         }
     }) {
         val tintColor = if (isFavorite) Red else White

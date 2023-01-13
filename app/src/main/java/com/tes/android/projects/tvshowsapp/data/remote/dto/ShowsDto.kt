@@ -2,7 +2,7 @@ package com.tes.android.projects.tvshowsapp.data.remote.dto
 
 import com.google.gson.annotations.SerializedName
 
-class ShowListingDto : ArrayList<ShowInfoDto>()
+class ShowsDto : ArrayList<ShowDetailDto>()
 
 data class Image(
     @SerializedName("medium")

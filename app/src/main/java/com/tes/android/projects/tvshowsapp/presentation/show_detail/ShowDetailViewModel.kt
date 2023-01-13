@@ -1,4 +1,4 @@
-package com.tes.android.projects.tvshowsapp.presentation.show_info
+package com.tes.android.projects.tvshowsapp.presentation.show_detail
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -14,12 +14,12 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class ShowInfoViewModel @Inject constructor(
+class ShowDetailViewModel @Inject constructor(
     private val savedStateHandle: SavedStateHandle,
     private val repository: ShowRepository,
     dispatcher: CoroutineDispatcher
 ) : ViewModel() {
-    var state by mutableStateOf(ShowInfoState())
+    var state by mutableStateOf(ShowDetailState())
 
     init {
         viewModelScope.launch(dispatcher) {

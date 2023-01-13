@@ -13,11 +13,11 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.unit.dp
 import coil.compose.rememberAsyncImagePainter
-import com.tes.android.projects.tvshowsapp.domain.model.ShowListing
+import com.tes.android.projects.tvshowsapp.domain.model.ShowDetail
 
 @Composable
 fun ShowItem(
-    show: ShowListing,
+    show: ShowDetail,
     modifier: Modifier = Modifier
 ) {
     val imagePainter = rememberAsyncImagePainter(show.image.medium)

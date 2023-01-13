@@ -1,4 +1,4 @@
-package com.tes.android.projects.tvshowsapp.presentation.search_show_listings
+package com.tes.android.projects.tvshowsapp.presentation.search_shows
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import app.cash.turbine.test
@@ -24,7 +24,7 @@ import org.junit.runners.JUnit4
 
 @ExperimentalCoroutinesApi
 @RunWith(JUnit4::class)
-class SearchShowListingsViewModelTest {
+class SearchShowsViewModelTest {
 
     @OptIn(ExperimentalCoroutinesApi::class)
     private val testDispatcher = StandardTestDispatcher()
@@ -32,7 +32,7 @@ class SearchShowListingsViewModelTest {
     @get:Rule
     val instantTaskExecutionRule: TestRule = InstantTaskExecutorRule()
 
-    private lateinit var searchShowListingsViewModel: SearchShowListingsViewModel
+    private lateinit var searchShowsViewModel: SearchShowsViewModel
     private lateinit var fakeRepository: FakeRepository
     private lateinit var useCase:FavoriteUseCase
 
@@ -42,23 +42,23 @@ class SearchShowListingsViewModelTest {
          Dispatchers.setMain(testDispatcher)
         fakeRepository = FakeRepository()
         useCase= FavoriteUseCase(fakeRepository)
-        searchShowListingsViewModel = SearchShowListingsViewModel(fakeRepository, testDispatcher,useCase )
+        searchShowsViewModel = SearchShowsViewModel(fakeRepository, testDispatcher,useCase )
     }
 
     @Test
     fun `success data response from api`() = runTest {
-        searchShowListingsViewModel.onEvent(SearchShowListingsEvent.LoadShows)
-        searchShowListingsViewModel.uiState.test {
-            assertEquals(awaitItem(),  SearchShowListingsState(isLoading =false)) //initialise state
-            assertEquals(awaitItem(),  SearchShowListingsState(isLoading =true)) //actual loading state
+        searchShowsViewModel.onEvent(SearchShowsEvent.LoadShows)
+        searchShowsViewModel.uiState.test {
+            assertEquals(awaitItem(),  SearchShowsState(isLoading =false)) //initialise state
+            assertEquals(awaitItem(),  SearchShowsState(isLoading =true)) //actual loading state
             assertEquals(getDummyResponse().map { it.toShowListing() }, awaitItem().shows) //emit  data
         }
     }
     @Test
     fun `failure data response from api`()= runTest{
         fakeRepository.shouldEmitError=true
-        searchShowListingsViewModel.onEvent(SearchShowListingsEvent.LoadShows)
-        searchShowListingsViewModel.uiState.test {
+        searchShowsViewModel.onEvent(SearchShowsEvent.LoadShows)
+        searchShowsViewModel.uiState.test {
             awaitItem() // //initialise state
             awaitItem() //actual loading state
             assertEquals("Error message", awaitItem().error)  //error case

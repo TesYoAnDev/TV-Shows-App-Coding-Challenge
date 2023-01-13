@@ -2,12 +2,12 @@ package com.tes.android.projects.tvshowsapp.core.mapper
 
 import com.tes.android.projects.tvshowsapp.data.local.entity.FavoriteShowListingEntity
 import com.tes.android.projects.tvshowsapp.data.local.entity.ShowListingEntity
-import com.tes.android.projects.tvshowsapp.data.remote.dto.ShowInfoDto
-import com.tes.android.projects.tvshowsapp.domain.model.ShowListing
+import com.tes.android.projects.tvshowsapp.data.remote.dto.ShowDetailDto
+import com.tes.android.projects.tvshowsapp.domain.model.ShowDetail
 
 
-fun ShowListingEntity.toShowListing(): ShowListing {
-    return ShowListing(
+fun ShowListingEntity.toShowListing(): ShowDetail {
+    return ShowDetail(
         id = id!!,
         name = name,
         type = type,
@@ -20,7 +20,7 @@ fun ShowListingEntity.toShowListing(): ShowListing {
     )
 }
 
-fun ShowListing.toShowListingEntity(): ShowListingEntity {
+fun ShowDetail.toShowListingEntity(): ShowListingEntity {
     return ShowListingEntity(
         id=id,
         name = name,
@@ -34,7 +34,7 @@ fun ShowListing.toShowListingEntity(): ShowListingEntity {
     )
 }
 
-fun ShowListing.toFavoriteShowListingEntity(): FavoriteShowListingEntity {
+fun ShowDetail.toFavoriteShowListingEntity(): FavoriteShowListingEntity {
     return FavoriteShowListingEntity(
         id=id,
         name = name,
@@ -48,8 +48,8 @@ fun ShowListing.toFavoriteShowListingEntity(): FavoriteShowListingEntity {
     )
 }
 
-fun ShowInfoDto.toShowListing(): ShowListing {
-    return ShowListing(
+fun ShowDetailDto.toShowListing(): ShowDetail {
+    return ShowDetail(
         id = id,
         name = name,
         type = type,
@@ -62,8 +62,8 @@ fun ShowInfoDto.toShowListing(): ShowListing {
     )
 }
 
-fun FavoriteShowListingEntity.toShowListing(): ShowListing {
-    return ShowListing(
+fun FavoriteShowListingEntity.toShowListing(): ShowDetail {
+    return ShowDetail(
         id = id!!,
         name = name,
         type = type,

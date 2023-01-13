@@ -2,7 +2,7 @@ package com.tes.android.projects.tvshowsapp.data.remote.dto
 
 import com.google.gson.annotations.SerializedName
 
-data class ShowInfoDto(
+data class ShowDetailDto(
     @SerializedName("id")
     val id: Int = 0,
     @SerializedName("image")

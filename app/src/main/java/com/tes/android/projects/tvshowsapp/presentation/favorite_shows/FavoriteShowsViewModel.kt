@@ -1,4 +1,4 @@
-package com.tes.android.projects.tvshowsapp.presentation.favorite
+package com.tes.android.projects.tvshowsapp.presentation.favorite_shows
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -6,8 +6,6 @@ import com.tes.android.projects.tvshowsapp.domain.repository.ShowRepository
 import com.tes.android.projects.tvshowsapp.util.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -16,19 +14,19 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class FavoriteViewModel @Inject constructor(
+class FavoriteShowsViewModel @Inject constructor(
     private val repository: ShowRepository,
     private val dispatcher: CoroutineDispatcher
 
 ) : ViewModel() {
-    private val _uiState = MutableStateFlow(FavoriteUiState())
+    private val _uiState = MutableStateFlow(FavoriteShowsUiState())
 
-    val uiState: StateFlow<FavoriteUiState> = _uiState.asStateFlow()
+    val uiState: StateFlow<FavoriteShowsUiState> = _uiState.asStateFlow()
 
-    fun onEvent(event: FavoriteShowListingEvent) {
+    fun onEvent(event: FavoriteShowsEvent) {
         when (event) {
 
-            is FavoriteShowListingEvent.OnDeleteSelected -> {
+            is FavoriteShowsEvent.OnDeleteSelected -> {
               //  _uiState.value = _uiState.value.copy(id = event.id)
                 _uiState.update { it.copy(id=event.id) }
 
@@ -36,7 +34,7 @@ class FavoriteViewModel @Inject constructor(
                     deleteFavorite()
                 }
             }
-            is FavoriteShowListingEvent.LoadFavoriteShows-> getFavoriteShowListings()
+            is FavoriteShowsEvent.LoadFavoriteShows-> getFavoriteShowListings()
         }
     }
 

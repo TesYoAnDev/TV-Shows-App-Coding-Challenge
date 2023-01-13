@@ -5,11 +5,8 @@ import com.tes.android.projects.tvshowsapp.data.local.entity.ShowListingEntity
 import com.tes.android.projects.tvshowsapp.core.mapper.toFavoriteShowListingEntity
 import com.tes.android.projects.tvshowsapp.core.mapper.toShowListing
 import com.tes.android.projects.tvshowsapp.core.mapper.toShowListingEntity
-import com.tes.android.projects.tvshowsapp.data.remote.dto.Image
-import com.tes.android.projects.tvshowsapp.data.remote.dto.Rating
-import com.tes.android.projects.tvshowsapp.data.remote.dto.ShowInfoDto
-import com.tes.android.projects.tvshowsapp.data.remote.dto.ShowListingDto
-import com.tes.android.projects.tvshowsapp.domain.model.ShowListing
+import com.tes.android.projects.tvshowsapp.data.remote.dto.*
+import com.tes.android.projects.tvshowsapp.domain.model.ShowDetail
 import com.tes.android.projects.tvshowsapp.domain.repository.ShowRepository
 import com.tes.android.projects.tvshowsapp.util.Resource
 import kotlinx.coroutines.flow.Flow
@@ -17,15 +14,15 @@ import kotlinx.coroutines.flow.flow
 
 class FakeRepository : ShowRepository {
 
-    var showsList: MutableList<ShowListing> = mutableListOf()
-    var favoriteShowList: MutableList<ShowListing> = mutableListOf()
+    var showsList: MutableList<ShowDetail> = mutableListOf()
+    var favoriteShowList: MutableList<ShowDetail> = mutableListOf()
 
     var shouldEmitError: Boolean = false
 
     override suspend fun getShowListings(
         fetchFromRemote: Boolean,
         query: String
-    ): Flow<Resource<List<ShowListing>>> {
+    ): Flow<Resource<List<ShowDetail>>> {
         return flow {
             emit(Resource.Loading())
             if (!shouldEmitError) emit(Resource.Success(getDummyResponse().map { it.toShowListing() }))
@@ -37,11 +34,11 @@ class FakeRepository : ShowRepository {
         return showsList.map { it.toShowListingEntity() }
     }
 
-    override suspend fun getShowListingFromApi(): ShowListingDto {
+    override suspend fun getShowListingFromApi(): ShowsDto {
         return null!!
     }
 
-    override suspend fun getShowInfo(query: String): Resource<ShowListing> {
+    override suspend fun getShowInfo(query: String): Resource<ShowDetail> {
         return Resource.Success( data= showsList[0])
     }
 
@@ -56,11 +53,11 @@ class FakeRepository : ShowRepository {
     }
 
 
-    override suspend fun insertFavoriteShowToDb(show: ShowListing) {
+    override suspend fun insertFavoriteShowToDb(show: ShowDetail) {
         favoriteShowList.add(show)
     }
 
-    override suspend fun getFavorites(): Flow<Resource<List<ShowListing>>> =flow{
+    override suspend fun getFavorites(): Flow<Resource<List<ShowDetail>>> =flow{
         emit(Resource.Success(data=favoriteShowList))
     }
 
@@ -79,16 +76,16 @@ class FakeRepository : ShowRepository {
 
 fun getDummyResponse() = getDummyList()
 
-fun getDummyList(): List<ShowInfoDto> {
+fun getDummyList(): List<ShowDetailDto> {
 
-    val list = mutableListOf<ShowInfoDto>()
+    val list = mutableListOf<ShowDetailDto>()
     for (i in 1..5) {
         list.add(getDummyShowInfoDto(i))
     }
     return  list
 }
 
-fun getDummyShowInfoDto(id: Int = 1) = ShowInfoDto(
+fun getDummyShowInfoDto(id: Int = 1) = ShowDetailDto(
     id = id,
     image = Image(),
     name = "Under the Dome",

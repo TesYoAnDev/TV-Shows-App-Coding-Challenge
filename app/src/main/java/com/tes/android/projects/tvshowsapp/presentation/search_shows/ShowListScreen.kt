@@ -1,4 +1,4 @@
-package com.tes.android.projects.tvshowsapp.presentation.search_show_listings
+package com.tes.android.projects.tvshowsapp.presentation.search_shows
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -26,7 +26,7 @@ import com.tes.android.projects.tvshowsapp.core.navigation.SHOW_DETAIL_SCREEN
 @Composable
 fun ShowListScreen(
     navController: NavController,
-    viewModel: SearchShowListingsViewModel = hiltViewModel()
+    viewModel: SearchShowsViewModel = hiltViewModel()
 ) {
     val uiState by viewModel.uiState.collectAsState()
 
@@ -36,7 +36,7 @@ fun ShowListScreen(
 
     // Launch a coroutine bound to the scope of the composable, viewModel relaunched
     LaunchedEffect(key1 = viewModel, block = {
-        viewModel.onEvent(SearchShowListingsEvent.LoadShows)
+        viewModel.onEvent(SearchShowsEvent.LoadShows)
     })
 
     Column(
@@ -51,7 +51,7 @@ fun ShowListScreen(
         SwipeRefresh(
             state = swipeRefreshState,
             onRefresh = {
-                viewModel.onEvent(SearchShowListingsEvent.Refresh)
+                viewModel.onEvent(SearchShowsEvent.Refresh)
             }
         ) {
             LazyColumn(

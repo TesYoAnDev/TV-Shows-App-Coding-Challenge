@@ -14,8 +14,8 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.compose.rememberNavController
 import com.tes.android.projects.tvshowsapp.core.navigation.BottomNav
 import com.tes.android.projects.tvshowsapp.core.navigation.NavGraph
-import com.tes.android.projects.tvshowsapp.presentation.favorite.FavoriteViewModel
-import com.tes.android.projects.tvshowsapp.presentation.search_show_listings.SearchShowListingsViewModel
+import com.tes.android.projects.tvshowsapp.presentation.favorite_shows.FavoriteShowsViewModel
+import com.tes.android.projects.tvshowsapp.presentation.search_shows.SearchShowsViewModel
 //import com.tes.android.projects.tvshowsapp.presentation.NavGraphs
 import com.tes.android.projects.tvshowsapp.ui.theme.TVShowsAppTheme
 import dagger.hilt.android.AndroidEntryPoint
@@ -35,14 +35,14 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun TvShows() {
     val navController = rememberNavController()
-    val   favoriteViewModel: FavoriteViewModel = hiltViewModel()
-    val   showListingViewModel: SearchShowListingsViewModel = hiltViewModel()
+    val   favoriteShowsViewModel: FavoriteShowsViewModel = hiltViewModel()
+    val   showListingViewModel: SearchShowsViewModel = hiltViewModel()
 
     Scaffold(
         bottomBar = { BottomNav(navController = navController) },
         content = { padding -> Column(modifier = Modifier.padding(padding)){
             NavGraph(navController = navController,
-                favoriteViewModel=favoriteViewModel,
+                favoriteShowsViewModel=favoriteShowsViewModel,
                 showListingViewModel=showListingViewModel
             )
         } },

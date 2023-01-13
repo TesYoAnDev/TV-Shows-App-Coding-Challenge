@@ -1,10 +1,10 @@
-package com.tes.android.projects.tvshowsapp.presentation.home
+package com.tes.android.projects.tvshowsapp.presentation.search_shows
 
 import com.tes.android.projects.tvshowsapp.data.remote.dto.Image
 import com.tes.android.projects.tvshowsapp.data.remote.dto.Rating
 import com.tes.android.projects.tvshowsapp.domain.model.ShowDetail
 
-data class ShowsState(
+data class SearchShowsState(
     val shows: List<ShowDetail> = emptyList(),
     val isLoading:Boolean =false,
     val isRefreshing:Boolean=false,

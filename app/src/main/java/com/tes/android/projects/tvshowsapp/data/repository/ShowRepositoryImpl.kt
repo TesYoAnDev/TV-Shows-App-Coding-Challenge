@@ -5,7 +5,7 @@ import com.tes.android.projects.tvshowsapp.data.local.entity.ShowListingEntity
 import com.tes.android.projects.tvshowsapp.core.mapper.toShowListing
 import com.tes.android.projects.tvshowsapp.core.mapper.toShowListingEntity
 import com.tes.android.projects.tvshowsapp.data.remote.datasource.RemoteDataSource
-import com.tes.android.projects.tvshowsapp.domain.model.ShowListing
+import com.tes.android.projects.tvshowsapp.domain.model.ShowDetail
 import com.tes.android.projects.tvshowsapp.domain.repository.ShowRepository
 import com.tes.android.projects.tvshowsapp.util.Resource
 import kotlinx.coroutines.flow.Flow
@@ -24,7 +24,7 @@ class ShowRepositoryImpl @Inject constructor(
     override suspend fun getShowListings(
         fetchFromRemote: Boolean,
         query: String
-    ): Flow<Resource<List<ShowListing>>> {
+    ): Flow<Resource<List<ShowDetail>>> {
         return flow {
             emit(Resource.Loading(true))
             val localList = getShowListingFromDb(query)
@@ -62,7 +62,7 @@ class ShowRepositoryImpl @Inject constructor(
 
     }
 
-    override suspend fun getShowInfo(query: String): Resource<ShowListing> {
+    override suspend fun getShowInfo(query: String): Resource<ShowDetail> {
         return try {
             val result = getSingleShowFromDB(query)
             Resource.Success(result.toShowListing())
@@ -78,7 +78,7 @@ class ShowRepositoryImpl @Inject constructor(
             )
         }
     }
-    override suspend fun getFavorites(): Flow<Resource<List<ShowListing>>> {
+    override suspend fun getFavorites(): Flow<Resource<List<ShowDetail>>> {
         return flow {
             emit(Resource.Loading(true))
             val localList = getAllFavoritesFromDb()
@@ -111,7 +111,7 @@ class ShowRepositoryImpl @Inject constructor(
     override suspend fun getSingleShowFromDB(query: String) =
         localDataSource.getSingleShowFromDB(query)
 
-    override suspend fun insertFavoriteShowToDb(show: ShowListing) =
+    override suspend fun insertFavoriteShowToDb(show: ShowDetail) =
         localDataSource.insertFavoriteShowToDb(show)
 
     override suspend fun getAllFavoritesFromDb() = localDataSource.getAllFavoritesFromDb()

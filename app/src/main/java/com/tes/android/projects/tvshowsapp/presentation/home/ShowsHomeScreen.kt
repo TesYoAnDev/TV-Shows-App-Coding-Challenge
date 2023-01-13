@@ -32,7 +32,7 @@ import androidx.navigation.NavController
 import coil.compose.rememberAsyncImagePainter
 import com.tes.android.projects.tvshowsapp.core.navigation.SHOWLIST_SCREEN
 import com.tes.android.projects.tvshowsapp.core.navigation.SHOW_DETAIL_SCREEN
-import com.tes.android.projects.tvshowsapp.domain.model.ShowListing
+import com.tes.android.projects.tvshowsapp.domain.model.ShowDetail
 import com.tes.android.projects.tvshowsapp.R.drawable as AppIcon
 import com.tes.android.projects.tvshowsapp.R.string as AppText
 
@@ -162,7 +162,7 @@ fun ShowsHomeScreen(
 @Composable
 fun ShowItem_(
     viewModel: ShowsViewModel,
-    show: ShowListing,
+    show: ShowDetail,
     modifier: Modifier = Modifier
 ) {
     val imagePainter = rememberAsyncImagePainter(show.image.medium)
@@ -185,7 +185,7 @@ fun ShowItem_(
 
 @Composable
 fun ShowSmallItem(
-    show: ShowListing,
+    show: ShowDetail,
     modifier: Modifier = Modifier
 ) {
     val imagePainter = rememberAsyncImagePainter(show.image.medium)
@@ -236,7 +236,7 @@ private fun toolbarColor(darkTheme: Boolean = isSystemInDarkTheme()): Color {
 @Composable
 fun ImageCard(
     viewModel: ShowsViewModel,
-    show:ShowListing,
+    show:ShowDetail,
     painter: Painter,
     contentDescription: String,
     title: String,
@@ -372,7 +372,7 @@ fun SmallImageCard(
 fun FavoriteButton(
     modifier: Modifier,
     viewModel: ShowsViewModel = hiltViewModel(),
-    show: ShowListing
+    show: ShowDetail
 ) {
     var isFavorite by rememberSaveable(show) { mutableStateOf(show.isFavorite) }
 

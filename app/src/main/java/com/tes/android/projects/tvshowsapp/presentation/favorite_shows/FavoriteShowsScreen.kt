@@ -1,4 +1,4 @@
-package com.tes.android.projects.tvshowsapp.presentation.favorite
+package com.tes.android.projects.tvshowsapp.presentation.favorite_shows
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -8,7 +8,6 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Delete
-import androidx.compose.material.icons.outlined.Star
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -28,12 +27,12 @@ import coil.compose.rememberAsyncImagePainter
 import com.tes.android.projects.tvshowsapp.R
 import com.tes.android.projects.tvshowsapp.core.components.RatingBar
 import com.tes.android.projects.tvshowsapp.core.navigation.SHOW_DETAIL_SCREEN
-import com.tes.android.projects.tvshowsapp.domain.model.ShowListing
+import com.tes.android.projects.tvshowsapp.domain.model.ShowDetail
 
 @Composable
 fun FavoriteScreen(
     navController: NavController,
-    viewModel: FavoriteViewModel = hiltViewModel()
+    viewModel: FavoriteShowsViewModel = hiltViewModel()
 ) {
     val uiState by viewModel.uiState.collectAsState()
 
@@ -41,7 +40,7 @@ fun FavoriteScreen(
 
     // Launch a coroutine bound to the scope of the composable
     LaunchedEffect(key1 = viewModel, block = {
-        viewModel.onEvent(FavoriteShowListingEvent.LoadFavoriteShows)
+        viewModel.onEvent(FavoriteShowsEvent.LoadFavoriteShows)
     })
 
     if (favoriteShows.isNotEmpty()) {
@@ -71,7 +70,7 @@ fun FavoriteScreen(
                        )
                        IconButton(onClick = {
                            viewModel.onEvent(
-                               FavoriteShowListingEvent.OnDeleteSelected(
+                               FavoriteShowsEvent.OnDeleteSelected(
                                    show.id
                                )
                            )
@@ -134,7 +133,7 @@ fun TopAppBarContent() {
 
 @Composable
 fun ShowItem(
-    show: ShowListing,
+    show: ShowDetail,
     modifier: Modifier = Modifier
 ) {
     val imagePainter = rememberAsyncImagePainter(show.image.medium)

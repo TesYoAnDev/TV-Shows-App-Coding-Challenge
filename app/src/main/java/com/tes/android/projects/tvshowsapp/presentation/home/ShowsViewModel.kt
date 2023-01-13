@@ -2,7 +2,7 @@ package com.tes.android.projects.tvshowsapp.presentation.home
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.tes.android.projects.tvshowsapp.domain.model.ShowListing
+import com.tes.android.projects.tvshowsapp.domain.model.ShowDetail
 import com.tes.android.projects.tvshowsapp.domain.repository.ShowRepository
 import com.tes.android.projects.tvshowsapp.domain.use_case.FavoriteUseCase
 import com.tes.android.projects.tvshowsapp.util.Resource
@@ -54,7 +54,7 @@ class ShowsViewModel @Inject constructor(
         }
 
         private fun addFavorite(
-            show: ShowListing = _uiState.value.show
+            show: ShowDetail = _uiState.value.show
         ) {
             viewModelScope.launch(dispatcher) {
                 favoriteUseCase.addFavorite(show)

@@ -1,8 +1,8 @@
-package com.tes.android.projects.tvshowsapp.presentation.search_show_listings
+package com.tes.android.projects.tvshowsapp.presentation.search_shows
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.tes.android.projects.tvshowsapp.domain.model.ShowListing
+import com.tes.android.projects.tvshowsapp.domain.model.ShowDetail
 import com.tes.android.projects.tvshowsapp.domain.repository.ShowRepository
 import com.tes.android.projects.tvshowsapp.domain.use_case.FavoriteUseCase
 import com.tes.android.projects.tvshowsapp.util.Resource
@@ -18,24 +18,24 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class SearchShowListingsViewModel @Inject constructor(
+class SearchShowsViewModel @Inject constructor(
     private val repository: ShowRepository,
     private val dispatcher: CoroutineDispatcher,
     private val favoriteUseCase: FavoriteUseCase
 ) : ViewModel() {
-    private val _uiState = MutableStateFlow(SearchShowListingsState())
+    private val _uiState = MutableStateFlow(SearchShowsState())
 
-    val uiState: StateFlow<SearchShowListingsState> = _uiState.asStateFlow()
+    val uiState: StateFlow<SearchShowsState> = _uiState.asStateFlow()
 
     private var searchJob: Job? = null
 
-    fun onEvent(event: SearchShowListingsEvent) {
+    fun onEvent(event: SearchShowsEvent) {
         when (event) {
-            is SearchShowListingsEvent.Refresh -> {
+            is SearchShowsEvent.Refresh -> {
                 getShowListings(fetchFromRemote = true)
             }
-            is SearchShowListingsEvent.OnSearchQueryChange -> {
-               // _uiState.value = SearchShowListingsState(searchQuery = event.query)
+            is SearchShowsEvent.OnSearchQueryChange -> {
+               // _uiState.value = SearchShowsState(searchQuery = event.query)
                 _uiState.update { it.copy(searchQuery = event.query) }
 
                 searchJob = viewModelScope.launch {
@@ -43,20 +43,20 @@ class SearchShowListingsViewModel @Inject constructor(
                     getShowListings()
                 }
             }
-            is SearchShowListingsEvent.OnFavoriteSelected -> {
+            is SearchShowsEvent.OnFavoriteSelected -> {
                 // _uiState.value = _uiState.value.copy(show = event.show)
 
-               // _uiState.value = SearchShowListingsState(show = event.show)
+               // _uiState.value = SearchShowsState(show = event.show)
                 _uiState.update { it.copy(show = event.show) }
                 addFavorite()
 
             }
-            is SearchShowListingsEvent.DeleteFavorite-> {
+            is SearchShowsEvent.DeleteFavorite-> {
               //  _uiState.value = _uiState.value.copy(id = event.id)
                 _uiState.update { it.copy(id=event.id) }
                 deleteFavorite()
             }
-            is SearchShowListingsEvent.LoadShows -> {
+            is SearchShowsEvent.LoadShows -> {
                 getShowListings()
             }
         }
@@ -71,7 +71,7 @@ class SearchShowListingsViewModel @Inject constructor(
     }
 
     private fun addFavorite(
-        show: ShowListing = _uiState.value.show
+        show: ShowDetail = _uiState.value.show
     ) {
         viewModelScope.launch(dispatcher) {
             favoriteUseCase.addFavorite(show)

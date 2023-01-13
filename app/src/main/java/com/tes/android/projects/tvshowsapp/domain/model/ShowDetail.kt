@@ -3,7 +3,7 @@ package com.tes.android.projects.tvshowsapp.domain.model
 import com.tes.android.projects.tvshowsapp.data.remote.dto.Image
 import com.tes.android.projects.tvshowsapp.data.remote.dto.Rating
 
-data class ShowListing(
+data class ShowDetail(
     val id: Int = 0,
     val name: String,
     val type: String,

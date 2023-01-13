@@ -1,4 +1,4 @@
-package com.tes.android.projects.tvshowsapp.presentation.show_info
+package com.tes.android.projects.tvshowsapp.presentation.show_detail
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -7,12 +7,10 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
-import androidx.compose.material.icons.outlined.Star
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
@@ -26,8 +24,8 @@ import com.tes.android.projects.tvshowsapp.core.components.RatingBar
 import com.tes.android.projects.tvshowsapp.ui.theme.DarkBlue
 
 @Composable
-fun ShowInfoScreen(
-    viewModel: ShowInfoViewModel = hiltViewModel(),
+fun ShowDetailScreen(
+    viewModel: ShowDetailViewModel = hiltViewModel(),
     navController: NavController
 ) {
     val state = viewModel.state

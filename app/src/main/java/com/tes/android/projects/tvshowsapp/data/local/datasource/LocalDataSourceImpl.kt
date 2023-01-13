@@ -5,7 +5,7 @@ import com.tes.android.projects.tvshowsapp.data.local.dao.TvShowDao
 import com.tes.android.projects.tvshowsapp.data.local.entity.FavoriteShowListingEntity
 import com.tes.android.projects.tvshowsapp.data.local.entity.ShowListingEntity
 import com.tes.android.projects.tvshowsapp.core.mapper.toFavoriteShowListingEntity
-import com.tes.android.projects.tvshowsapp.domain.model.ShowListing
+import com.tes.android.projects.tvshowsapp.domain.model.ShowDetail
 import javax.inject.Inject
 
 class LocalDataSourceImpl @Inject constructor(
@@ -22,7 +22,7 @@ class LocalDataSourceImpl @Inject constructor(
     override suspend fun insertShowListingToDb(showList: List<ShowListingEntity>)=
         showDao.insertShowListings(showList)
 
-    override suspend fun insertFavoriteShowToDb(show: ShowListing) =
+    override suspend fun insertFavoriteShowToDb(show: ShowDetail) =
         favoriteShowDao.insertFavoriteShow(show.toFavoriteShowListingEntity())
 
     override suspend fun clearShowListingsFromDb() =

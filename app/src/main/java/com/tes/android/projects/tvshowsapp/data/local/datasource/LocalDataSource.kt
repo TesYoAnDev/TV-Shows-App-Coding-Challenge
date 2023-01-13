@@ -2,7 +2,7 @@ package com.tes.android.projects.tvshowsapp.data.local.datasource
 
 import com.tes.android.projects.tvshowsapp.data.local.entity.FavoriteShowListingEntity
 import com.tes.android.projects.tvshowsapp.data.local.entity.ShowListingEntity
-import com.tes.android.projects.tvshowsapp.domain.model.ShowListing
+import com.tes.android.projects.tvshowsapp.domain.model.ShowDetail
 
 interface LocalDataSource {
 
@@ -12,7 +12,7 @@ interface LocalDataSource {
 
     suspend fun insertShowListingToDb(showList: List<ShowListingEntity>)
 
-    suspend fun insertFavoriteShowToDb(show: ShowListing)
+    suspend fun insertFavoriteShowToDb(show: ShowDetail)
 
     suspend fun clearShowListingsFromDb()
 
